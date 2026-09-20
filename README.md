@@ -34,6 +34,99 @@
 
 **LibreCuts** is a free, open-source video editor for Android that prioritizes simplicity, efficiency, and privacy. Built for seamless performance, it empowers creators to easily select, edit, and export watermark-free videos locally on their device.
 
+
+---
+
+## 🛠️ Community Repair Fork / Fork comunitário de reparo
+
+> Upstream original: [tharunbirla/LibreCuts](https://github.com/tharunbirla/LibreCuts) — MIT licensed.  
+> This fork keeps the original project and attribution intact while documenting a community-tested ARM64 repair.
+
+### 🇧🇷 Resumo em português
+
+Este fork existe para registrar e compartilhar um **reparo comunitário testado** para um crash ao abrir vídeo em ambiente **ARM64 / Android 15 (API 35)**. O erro visível era `FFmpegKit failed to start`; a cadeia de erro apontava para falha no carregamento nativo, incluindo `UnsatisfiedLinkError`, `libavcodec.so` e `.dynamic section header was not found`.
+
+A versão **Repair1 native-fixed** funcionou em teste real com **aproximadamente 82 minutos de vídeo + legenda SRT**, sem reproduzir o crash original.
+
+**Ambiente técnico do teste (sem marca/modelo do aparelho):**
+- Android 15 / API 35
+- ARM64-v8a
+- MediaTek Helio G100, octa-core, até 2.2 GHz
+- 12 GB de RAM física
+- GPU Mali-G57 MC2
+
+Isto é um **workaround/reparo confirmado nesse ambiente**, não uma promessa de correção universal. A ideia do fork é deixar diagnóstico, binários e contexto suficientes para que qualquer pessoa possa estudar, adaptar, melhorar e, se fizer sentido, devolver uma solução mais limpa ao upstream. Open source é isso.
+
+### 🇺🇸 Repair notes — the longer version
+
+Yo — if you landed here because LibreCuts face-plants right when you try to open a video, I ran into the same damn thing. Instead of patching my copy and bouncing, I'm leaving the findings here so another playa — maintainer, contributor, random dev, he, she, they, or an Apache helicopter — can study it, improve it, fork it, or push a cleaner fix upstream. Ya dig?
+
+#### What happened
+
+On the affected ARM64 / Android 15 setup, selecting a video could fail immediately with:
+
+```text
+FFmpegKit failed to start
+```
+
+The underlying crash chain included a native-loader failure around FFmpegKit / FFmpeg libraries, with messages involving:
+
+```text
+UnsatisfiedLinkError
+libavcodec.so
+.dynamic section header was not found
+```
+
+So the important part was not RAM pressure, GPU horsepower, or a long-video workload. The failure happened during native startup, before normal editing could really get going.
+
+#### What this fork preserves
+
+The working repair build is named:
+
+```text
+LibreCuts-Repair1-native-fixed-arm64-v8a.apk
+```
+
+It preserves the earlier subtitle/export-side repair work and the native-loading repair that allowed the app to get past the FFmpegKit startup failure in the tested environment.
+
+This is intentionally documented as a **confirmed working repair**, not as some holy universal fix carved into stone. Different Android builds, ABIs, vendor loaders, packaging pipelines, or future LibreCuts versions may need a cleaner or different approach.
+
+#### Real-world test
+
+The repaired build was tested with:
+
+- about **82 minutes of video**
+- an imported **SRT subtitle track**
+- ARM64-v8a
+- Android 15 / API 35
+- MediaTek Helio G100 (octa-core, up to 2.2 GHz)
+- 12 GB physical RAM
+- Mali-G57 MC2 GPU
+
+The original FFmpegKit startup crash did **not** recur during that test.
+
+No manufacturer, device model, custom Android skin, serial, or other device-identifying information is needed to reproduce the technical context, so none is documented here.
+
+#### APK integrity
+
+```text
+LibreCuts-arm64-v8a.apk
+SHA-256: cabdf4356fef9df2a048f88db27a6009953b8e920787e956071e074ecc8b04ca
+
+LibreCuts-Repair1-native-fixed-arm64-v8a.apk
+SHA-256: de269c5d51483aed2ae7327ce938e86ff89f8a5d7dd195e0d7ef2bd818a55df4
+```
+
+#### Why publish the fork?
+
+Because that's the whole point of this stuff.
+
+Find a bug. Understand as much of the failure as you can. Fix the damn thing. Test it in the real world. Document what worked. Share it. Let somebody else make it better.
+
+If this repair gives the upstream maintainer a useful clue for a cleaner beta, even better. No ownership games, no gatekeeping — just voluntary contribution and useful code.
+
+Word up. Open source, baby.
+
 ---
 
 ## ✊ Keep Android Open
