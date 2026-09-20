@@ -42,20 +42,20 @@
 > Upstream original: [tharunbirla/LibreCuts](https://github.com/tharunbirla/LibreCuts) — MIT licensed.  
 > This fork keeps the original project and attribution intact while documenting a community-tested ARM64 repair.
 
-### 🇧🇷 Resumo em português
+### 🇧🇷 Resumo em português-br
 
 Este fork existe para registrar e compartilhar um **reparo comunitário testado** para um crash ao abrir vídeo em ambiente **ARM64 / Android 15 (API 35)**. O erro visível era `FFmpegKit failed to start`; a cadeia de erro apontava para falha no carregamento nativo, incluindo `UnsatisfiedLinkError`, `libavcodec.so` e `.dynamic section header was not found`.
 
 A versão **Repair1 native-fixed** funcionou em teste real com **aproximadamente 82 minutos de vídeo + legenda SRT**, sem reproduzir o crash original.
 
-**Ambiente técnico do teste (sem marca/modelo do aparelho):**
+**Ambiente técnico do teste:**
 - Android 15 / API 35
 - ARM64-v8a
-- MediaTek Helio G100, octa-core, até 2.2 GHz
+- MediaTek Helio G100, octa-core, 2.2 GHz
 - 12 GB de RAM física
 - GPU Mali-G57 MC2
 
-Isto é um **workaround/reparo confirmado nesse ambiente**, não uma promessa de correção universal. A ideia do fork é deixar diagnóstico, binários e contexto suficientes para que qualquer pessoa possa estudar, adaptar, melhorar e, se fizer sentido, devolver uma solução mais limpa ao upstream. Open source é isso.
+Isto é um **workaround/reparo confirmado nesse ambiente**, não uma promessa de correção universal. A ideia do fork é deixar diagnóstico, binários e contexto suficientes para que qualquer pessoa possa estudar, adaptar, melhorar e, se fizer sentido, devolver uma solução mais limpa ao upstream. Open source é isso!
 
 ### 🇺🇸 Repair notes — the longer version
 
@@ -99,13 +99,12 @@ The repaired build was tested with:
 - an imported **SRT subtitle track**
 - ARM64-v8a
 - Android 15 / API 35
-- MediaTek Helio G100 (octa-core, up to 2.2 GHz)
+- MediaTek Helio G100 (octa-core, 2.2 GHz)
 - 12 GB physical RAM
 - Mali-G57 MC2 GPU
 
 The original FFmpegKit startup crash did **not** recur during that test.
 
-No manufacturer, device model, custom Android skin, serial, or other device-identifying information is needed to reproduce the technical context, so none is documented here.
 
 #### APK integrity
 
